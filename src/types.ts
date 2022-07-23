@@ -1,4 +1,5 @@
 export interface Options {
-  include?: string[],
-  exclude?: string[],
+  endpoint: "npm" | "gh",
+  modules: string[],
+  cwd: string,
 }
