@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@ayuhito/eslint-config': ^0.2.3
+  '@rollup/pluginutils': ^4.2.1
   '@types/node': ^18.0.6
   '@types/semver': ^7.3.10
   c8: ^7.12.0
@@ -22,6 +23,7 @@ specifiers:
   vitest: ^0.18.1
 
 dependencies:
+  '@rollup/pluginutils': 4.2.1
   es-module-lexer: 0.10.5
   pathe: 0.3.2
   pkg-up: 4.0.0
@@ -332,7 +334,6 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.1
-    dev: true
 
   /@rushstack/eslint-patch/1.1.4:
     resolution: {integrity: sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA==}
@@ -1673,7 +1674,6 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
-    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}

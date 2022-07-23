@@ -48,6 +48,7 @@
     "prepublish": "npm run format && npm run build"
   },
   "dependencies": {
+    "@rollup/pluginutils": "^4.2.1",
     "es-module-lexer": "^0.10.5",
     "pathe": "^0.3.2",
     "pkg-up": "^4.0.0",

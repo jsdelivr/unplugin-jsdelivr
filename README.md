@@ -101,7 +101,9 @@ build({
 
 ## How It Works
 
-The plugin aims to resolve all the external modules into resolvable CDN URLs. It first transforms member style imports into default imports e.g.
+The plugin aims to resolve all the external modules into resolvable CDN URLs.
+
+If the `transform` option is set to `true` and setup correctly, it first transforms member style imports into default imports e.g.
 
 ```ts
 import { map, merge as LodashMerge } from "lodash";
@@ -121,6 +123,15 @@ This creates more efficient development bundles as we're not loading the whole l
 ```ts
 import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map.js/+esm";
 import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge.js/+esm";
+```
+
+Alternatively, if the `transform` option is set to false, it will directly resolve to the ESM bundles of the package:
+
+```ts
+import {
+  map,
+  merge as LodashMerge,
+} from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm";
 ```
 
 > TODO

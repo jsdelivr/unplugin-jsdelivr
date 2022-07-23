@@ -9,23 +9,31 @@ import type { Options } from './types'
 export default createUnplugin<Options>(options => {
   const ctx = createContext(options);
 
+  if (ctx.transform)
+    return ({
+      name: 'unplugin-jsdelivr',
+      async transform(code, id) {
+        const version = await getVersion(id);
+        const hostId = `${ctx.host}/${id}@${version}/`;
+
+        return code.replace('__UNPLUGIN__', `Hello Unplugin! ${options}`)
+      }
+    })
+
+  // If no transform, return full ESM bundles
   return ({
     name: 'unplugin-jsdelivr',
     async resolveId(id) {
-      if (ctx.modules.includes(id)) {
+      if (ctx.modules.has(id)) {
         const version = await getVersion(id);
+        const hostId = `${ctx.host}/${id}@${version}`;
         return {
-          id: `${ctx.host}/${id}@${version}`,
+          id: hostId,
           external: true,
         }
       }
       return null;
     },
-    transformInclude(id) {
-      return id.endsWith('main.ts')
-    },
-    transform(code) {
-      return code.replace('__UNPLUGIN__', `Hello Unplugin! ${options}`)
-    },
+
   })
 })
