@@ -1,14 +1,15 @@
-type TransformFunction = (importName?: string, matches?: string) => string;
-export interface TransformOptions {
+export type TransformFunction = (importName?: string, matches?: string) => string;
+export interface ModuleOpts {
   module: string,
-  transform: string | TransformFunction,
+  transform?: TransformFunction,
 }
 export interface Options {
-  cwd: string,
-  enforce: 'pre' | 'post' | undefined,
-  endpoint: "npm" | "gh",
+  cwd?: string,
+  enforce?: 'pre' | 'post',
+  endpoint?: "npm" | "gh",
 
-  transform: boolean,
-  modules: TransformOptions[],
+  transform?: boolean,
+  modules?: ModuleOpts[],
+  allExternal?: boolean,
 }
 

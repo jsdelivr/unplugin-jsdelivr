@@ -2,14 +2,14 @@
 import fg from 'fast-glob'
 import * as fs from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import path, { basename, resolve } from 'pathe'
+import { basename, dirname, resolve } from 'pathe'
 import colors from 'picocolors'
 
 const run = async () => {
   const files = await fg('*.js', {
     ignore: ['chunk-*'],
     absolute: true,
-    cwd: resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist'),
+    cwd: resolve(dirname(fileURLToPath(import.meta.url)), '../dist'),
   })
   for (const file of files) {
     console.log(colors.bgCyan(' POSTBUILD '), `Fix ${basename(file)}`)
@@ -20,4 +20,4 @@ const run = async () => {
   }
 }
 
-await run()
+run()

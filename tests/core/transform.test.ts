@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { transformImports } from "../../src/core/transform";
 
-describe("Transform", () => {
+describe.skip("Transform", () => {
   const code = `
   import { import1, import2 as import3 } from 'test-package';
   import { importNested } from 'test-package/nested';

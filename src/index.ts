@@ -13,10 +13,10 @@ export default createUnplugin<Options>(options => {
     return ({
       name: 'unplugin-jsdelivr',
       async transform(code, id) {
-        const version = await getVersion(id);
-        const hostId = `${ctx.host}/${id}@${version}/`;
+        // const version = await getVersion(id);
+        // const hostId = `${ctx.host}/${id}@${version}/`;
 
-        return code.replace('__UNPLUGIN__', `Hello Unplugin! ${options}`)
+        return code.replace('__UNPLUGIN__', `Hello Unplugin! ${options + id}`)
       }
     })
 
@@ -25,15 +25,14 @@ export default createUnplugin<Options>(options => {
     name: 'unplugin-jsdelivr',
     async resolveId(id) {
       if (ctx.modules.has(id)) {
-        const version = await getVersion(id);
-        const hostId = `${ctx.host}/${id}@${version}`;
+        const version = await getVersion(id, ctx.cwd);
+        const hostId = `${ctx.host}/${id}@${version}/+esm`;
         return {
           id: hostId,
           external: true,
         }
       }
       return null;
-    },
-
+    }
   })
 })

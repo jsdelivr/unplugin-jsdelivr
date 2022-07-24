@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@ayuhito/eslint-config': ^0.2.3
   '@rollup/pluginutils': ^4.2.1
+  '@types/lodash': ^4.14.182
   '@types/node': ^18.0.6
   '@types/semver': ^7.3.10
   c8: ^7.12.0
@@ -15,6 +16,8 @@ specifiers:
   pkg-versions: ^3.0.0
   pkgroll: ^1.3.1
   prettier: ^2.7.1
+  rimraf: ^3.0.2
+  rollup: ^2.77.0
   semver: ^7.3.7
   tsx: ^3.8.0
   type-fest: ^2.17.0
@@ -28,10 +31,11 @@ dependencies:
   pathe: 0.3.2
   pkg-up: 4.0.0
   semver: 7.3.7
-  unplugin: 0.7.2
+  unplugin: 0.7.2_rollup@2.77.0
 
 devDependencies:
   '@ayuhito/eslint-config': 0.2.3_he2ccbldppg44uulnyq4rwocfa
+  '@types/lodash': 4.14.182
   '@types/node': 18.0.6
   '@types/semver': 7.3.10
   c8: 7.12.0
@@ -41,6 +45,8 @@ devDependencies:
   pkg-versions: 3.0.0
   pkgroll: 1.3.1_typescript@4.7.4
   prettier: 2.7.1
+  rimraf: 3.0.2
+  rollup: 2.77.0
   tsx: 3.8.0
   type-fest: 2.17.0
   typescript: 4.7.4
@@ -402,6 +408,10 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 18.0.6
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
     dev: true
 
   /@types/node/18.0.6:
@@ -2922,7 +2932,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -3254,7 +3263,7 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /unplugin/0.7.2:
+  /unplugin/0.7.2_rollup@2.77.0:
     resolution: {integrity: sha512-m7thX4jP8l5sETpLdUASoDOGOcHaOVtgNyrYlToyQUvILUtEzEnngRBrHnAX3IKqooJVmXpoa/CwQ/QqzvGaHQ==}
     peerDependencies:
       esbuild: '>=0.13'
@@ -3273,6 +3282,7 @@ packages:
     dependencies:
       acorn: 8.8.0
       chokidar: 3.5.3
+      rollup: 2.77.0
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.4.4
     dev: false
