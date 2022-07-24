@@ -5,7 +5,7 @@ import pkgVersions from 'pkg-versions'
 import * as semver from 'semver'
 import type { PackageJson } from 'type-fest'
 
-const getVersion = async (id: string, cwd: string): Promise<string> => {
+const getVersion = async (id: string, cwd?: string): Promise<string> => {
   const pkgPath = await pkgUp({ cwd });
   if (!pkgPath)
     throw new Error(`Could not find ${colors.bold(colors.yellow('package.json'))} to resolve versions...`)

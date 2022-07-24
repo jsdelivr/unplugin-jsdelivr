@@ -2,6 +2,7 @@
 import { createUnplugin } from 'unplugin'
 
 import { createContext } from './core/context';
+import { transformImports } from "./core/transform"
 import { getVersion } from './core/version'
 import type { Options } from './types'
 
@@ -9,22 +10,10 @@ import type { Options } from './types'
 export default createUnplugin<Options>(options => {
   const ctx = createContext(options);
 
-  if (ctx.transform)
-    return ({
-      name: 'unplugin-jsdelivr',
-      async transform(code, id) {
-        // const version = await getVersion(id);
-        // const hostId = `${ctx.host}/${id}@${version}/`;
-
-        return code.replace('__UNPLUGIN__', `Hello Unplugin! ${options + id}`)
-      }
-    })
-
-  // If no transform, return full ESM bundles
   return ({
     name: 'unplugin-jsdelivr',
     async resolveId(id) {
-      if (ctx.modules.has(id)) {
+      if (ctx.modules.get(id) === id) {
         const version = await getVersion(id, ctx.cwd);
         const hostId = `${ctx.host}/${id}@${version}/+esm`;
         return {
@@ -32,7 +21,11 @@ export default createUnplugin<Options>(options => {
           external: true,
         }
       }
-      return null;
+
+      return null
+    },
+    async transform(code) {
+      return transformImports(code, ctx.modules)
     }
   })
 })

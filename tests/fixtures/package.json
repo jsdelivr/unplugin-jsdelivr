@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "underscore": "1.13.x"
   }
 }

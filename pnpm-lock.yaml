@@ -6,10 +6,12 @@ specifiers:
   '@types/lodash': ^4.14.182
   '@types/node': ^18.0.6
   '@types/semver': ^7.3.10
+  '@types/underscore': ^1.11.4
   c8: ^7.12.0
   es-module-lexer: ^0.10.5
   eslint: ^8.20.0
   fast-glob: ^3.2.11
+  magic-string: ^0.26.2
   pathe: ^0.3.2
   picocolors: ^1.0.0
   pkg-up: ^4.0.0
@@ -28,6 +30,7 @@ specifiers:
 dependencies:
   '@rollup/pluginutils': 4.2.1
   es-module-lexer: 0.10.5
+  magic-string: 0.26.2
   pathe: 0.3.2
   pkg-up: 4.0.0
   semver: 7.3.7
@@ -38,6 +41,7 @@ devDependencies:
   '@types/lodash': 4.14.182
   '@types/node': 18.0.6
   '@types/semver': 7.3.10
+  '@types/underscore': 1.11.4
   c8: 7.12.0
   eslint: 8.20.0
   fast-glob: 3.2.11
@@ -436,6 +440,10 @@ packages:
 
   /@types/semver/7.3.10:
     resolution: {integrity: sha512-zsv3fsC7S84NN6nPK06u79oWgrPVd0NvOyqgghV1haPaFcVxIrP4DLomRwGAXk0ui4HZA7mOcSFL98sMVW9viw==}
+    dev: true
+
+  /@types/underscore/1.11.4:
+    resolution: {integrity: sha512-uO4CD2ELOjw8tasUrAhvnn2W4A0ZECOvMjCivJr4gA9pGgjv+qxKWY9GLTMVEK8ej85BxQOocUyE7hImmSQYcg==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.30.7_6wltbjakwuqm7awqswigmiuhd4:
@@ -2384,7 +2392,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       sourcemap-codec: 1.4.8
-    dev: true
 
   /make-dir/3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -3019,7 +3026,6 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    dev: true
 
   /spdx-correct/3.1.1:
     resolution: {integrity: sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==}

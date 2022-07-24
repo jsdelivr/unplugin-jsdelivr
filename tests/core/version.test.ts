@@ -10,7 +10,7 @@ vi.mock('node:fs/promises')
 vi.mock('pkg-up')
 vi.mock('pkg-versions')
 
-describe("Version", () => {
+describe.skip("Version", () => {
 
   const testPkgJson = JSON.stringify({
     dependencies: {
