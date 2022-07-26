@@ -110,7 +110,7 @@ build({
   // Required
   modules: [...] // See Modules
 
-  // Options
+  // Optional
   cwd: process.cwd();
   endpoint: "npm" // or "gh"
   enforce: undefined // "pre" | "post" - only applicable to Vite and Webpack
