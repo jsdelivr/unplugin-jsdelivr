@@ -1,45 +1,52 @@
-import { init, parse } from 'es-module-lexer'
+import { init, parse } from 'es-module-lexer';
 import MagicString from 'magic-string';
 
-import { ModuleMap, TransformFunction } from '../types';
+import { Context, ImportStatementTuple, ImportTuple, ModuleMapReturn } from '../types';
+import { getVersion } from './version';
 
-type ImportTuple = [OriginalImport: string, RenamedImport: string];
-
-const generateImportTuple = (importElem: string): ImportTuple[] => {
-  const tuple: ImportTuple[] = [];
-
+const generateImportTuple = (importElem: string): ImportTuple => {
   const importRename = importElem.split(' as ').map(e => e.trim());
   if (importRename.length === 1)
-    tuple.push([importRename[0], importRename[0]]); // 'map' into ['map', 'map']
-  else
-    tuple.push([importRename[0], importRename[1]]); // 'merge as LodashMerge' into ['merge', 'LodashMerge']
+    return [importRename[0], importRename[0]]; // 'map' into ['map', 'map']
 
-  return tuple
-}
+  return [importRename[0], importRename[1]]; // 'merge as LodashMerge' into ['merge', 'LodashMerge']
+};
 
-const generateImportStatements = (importModule: string, importTuples: ImportTuple[], transform: TransformFunction | string): string => {
-  const importStatements = importTuples.map(importTuple => {
-    const [originalImport, renamedImport] = importTuple;
-    const newModulePath = typeof transform === 'string' ? transform : transform(importModule, originalImport);
-    return `import ${renamedImport} from '${newModulePath}'`;
-  }).join('\n');
-  return importStatements;
-}
+const generateImportStatement = async (importModule: string, importTuple: ImportTuple, transform: ModuleMapReturn, ctx: Context): Promise<string> => {
+  const version = await getVersion(importModule, ctx.cwd);
+  const [originalImport, renamedImport] = importTuple;
+  const transformedModule = typeof transform === 'string' ? transform : transform(`${importModule}@${version}`, originalImport);
+  const newModulePath = `${ctx.host}/${transformedModule}/+esm`;
+  return `import ${renamedImport} from '${newModulePath}';`;
+};
 
+const updateCode = (code: string, importStatements: ImportStatementTuple[]) => {
+  const magicCode = new MagicString(code);
+  // New rewritten statements will be shorter or longer offsetting indexes for other imports
+  let offset = 0;
+  for (const importStatementTuple of importStatements) {
+    const [importStatement, statementStart, statementEnd] = importStatementTuple;
+    magicCode.remove(statementStart + offset, statementEnd + offset);
+    magicCode.appendLeft(statementStart + offset, importStatement);
+    offset += importStatement.length - (statementEnd - statementStart);
+  }
 
+  return magicCode.toString();
+};
 
-const transformImports = async (code: string, modules: ModuleMap) => {
+const transformImports = async (code: string, ctx: Context) => {
   await init;
 
   const [imports] = parse(code);
-  const magicCode = new MagicString(code);
+  const importStatements: ImportStatementTuple[] = [];
+
   for (const importSpecifier of imports) {
     const importModule = importSpecifier.n; // e.g. 'lodash'
     if (importModule === undefined)
       throw new Error(`Bad import specifier: ${importSpecifier}`);
 
     // If module isn't included, skip to next importSpecifier
-    const transformFunction = modules.get(importModule);
+    const transformFunction = ctx.modules.get(importModule);
     if (transformFunction !== undefined) {
       // e.g. import { map, merge as LodashMerge } from "lodash"
       const importStatement = code.slice(importSpecifier.ss, importSpecifier.se);
@@ -47,19 +54,17 @@ const transformImports = async (code: string, modules: ModuleMap) => {
       const importElems = importStatement.slice(importStatement.indexOf('{') + 1, importStatement.indexOf('}')).split(',');
 
       // Setup import tuple
+      const newImportStatements: string[] = [];
       for (const importElem of importElems) {
-        const importTuples = generateImportTuple(importElem);
-
+        const importTuple = generateImportTuple(importElem);
         // Generate rewritten import statements
-        const newImportStatements = generateImportStatements(importModule, importTuples, transformFunction);
-        console.log(newImportStatements)
-        magicCode.overwrite(importSpecifier.ss, importSpecifier.se, newImportStatements);
-
-        console.log(magicCode.toString())
+        // eslint-disable-next-line no-await-in-loop
+        newImportStatements.push(await generateImportStatement(importModule, importTuple, transformFunction, ctx));
       }
+      importStatements.push([newImportStatements.join('\n'), importSpecifier.ss, importSpecifier.se]);
     }
   }
-  return code;
-}
+  return updateCode(code, await Promise.all(importStatements));
+};
 
-export { generateImportTuple, transformImports }
+export { generateImportStatement, generateImportTuple, transformImports, updateCode };

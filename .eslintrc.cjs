@@ -6,5 +6,7 @@ module.exports = {
   rules: {
     "no-console": "off",
     "import/no-default-export": "off",
+    semi: ["error", "always"],
+    quotes: ["error", "single", { avoidEscape: true }],
   },
 };
