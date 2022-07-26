@@ -1,6 +1,11 @@
 {
+  "name": "test-package",
+  "version": "0.0.0",
   "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "@types/underscore": "^1.11.4",
     "lodash": "^4.17.21",
     "underscore": "1.13.x"
-  }
+  },
+  "license": "MIT"
 }
