@@ -17,20 +17,16 @@ const generateImportStatement = async (importModule: string, importTuple: Import
   const [originalImport, renamedImport] = importTuple;
   const transformedModule = typeof transform === 'string' ? transform : transform(`${importModule}@${version}`, originalImport);
   const newModulePath = `${ctx.host}/${transformedModule}/+esm`;
-  return `import ${renamedImport} from '${newModulePath}';`;
+  return `import ${renamedImport} from '${newModulePath}'`;
 };
 
 const updateCode = (code: string, importStatements: ImportStatementTuple[]) => {
   const magicCode = new MagicString(code);
-  // New rewritten statements will be shorter or longer offsetting indexes for other imports
-  let offset = 0;
   for (const importStatementTuple of importStatements) {
     const [importStatement, statementStart, statementEnd] = importStatementTuple;
-    magicCode.remove(statementStart + offset, statementEnd + offset);
-    magicCode.appendLeft(statementStart + offset, importStatement);
-    offset += importStatement.length - (statementEnd - statementStart);
+    magicCode.remove(statementStart, statementEnd);
+    magicCode.appendLeft(statementStart, importStatement);
   }
-
   return magicCode.toString();
 };
 
@@ -61,10 +57,10 @@ const transformImports = async (code: string, ctx: Context) => {
         // eslint-disable-next-line no-await-in-loop
         newImportStatements.push(await generateImportStatement(importModule, importTuple, transformFunction, ctx));
       }
-      importStatements.push([newImportStatements.join('\n'), importSpecifier.ss, importSpecifier.se]);
+      importStatements.push([newImportStatements.join(';\n'), importSpecifier.ss, importSpecifier.se]);
     }
   }
-  return updateCode(code, await Promise.all(importStatements));
+  return updateCode(code, importStatements);
 };
 
 export { generateImportStatement, generateImportTuple, transformImports, updateCode };

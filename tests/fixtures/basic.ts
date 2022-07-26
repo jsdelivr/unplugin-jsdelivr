@@ -1,6 +1,6 @@
 import { map, merge as LodashMerge } from 'lodash';
-import colors from 'picocolors'
-import { map as Undermap } from 'underscore'
+import colors from 'picocolors';
+import { map as Undermap } from 'underscore';
 
 const testMap = map([1, 2, 3], x => x + 1);
 const testMerge = LodashMerge({ a: 1 }, { b: 2 });

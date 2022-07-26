@@ -15,6 +15,7 @@ export default createUnplugin<Options>(options => {
     async resolveId(id) {
       if (ctx.modules.get(id) === id) {
         const version = await getVersion(id, ctx.cwd);
+        console.log(version);
         const hostId = `${ctx.host}/${id}@${version}/+esm`;
         return {
           id: hostId,
@@ -23,6 +24,11 @@ export default createUnplugin<Options>(options => {
       }
 
       return null;
+    },
+    transformInclude(id) {
+      if (ctx.modules.get(id) !== id)
+        return false;
+      return true;
     },
     async transform(code) {
       return transformImports(code, ctx);

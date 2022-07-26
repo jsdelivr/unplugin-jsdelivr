@@ -4,7 +4,7 @@ import * as path from 'pathe';
 import { describe, expect, it, vi } from 'vitest';
 
 import { createContext } from '../../src/core/context';
-import { generateImportStatement, generateImportTuple, transformImports, updateCode } from '../../src/core/transform';
+import { generateImportStatement, generateImportTuple, transformImports } from '../../src/core/transform';
 import { getVersion } from '../../src/core/version';
 import { ImportTuple } from '../../src/types';
 
@@ -13,10 +13,10 @@ vi.mock('../../src/core/version.ts');
 describe('Transform', () => {
   const code = fs.readFileSync(path.join(process.cwd(), 'tests/fixtures/basic.ts'), 'utf8');
 
-  const expectedCode = `import map from 'lodash/map';
-import LodashMerge from 'lodash/merge'
-import colors from 'picocolors'
-import UnderMap from 'underscore/map'
+  const expectedCode = `import map from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/map/+esm';
+import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/merge/+esm';
+import colors from 'picocolors';
+import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@2.0.0/lib/map/+esm';
 
 const testMap = map([1, 2, 3], x => x + 1);
 const testMerge = LodashMerge({ a: 1 }, { b: 2 });
@@ -39,6 +39,7 @@ export { testColors, testMap, testMap2, testMerge };`;
 
   const modules = [
     { module: 'lodash', transform: (moduleName: string, importName: string) => `${moduleName}/${importName}` },
+    { module: 'underscore', transform: (moduleName: string, importName: string) => `${moduleName}/lib/${importName}` },
   ];
   const ctx = createContext({ modules, cwd: 'tests/fixtures' });
   vi.mocked(getVersion).mockResolvedValue('2.0.0');
@@ -47,24 +48,23 @@ export { testColors, testMap, testMap2, testMerge };`;
     it('should generate import statements with one to one tuple', async () => {
       const tuple = ['map', 'map'] as ImportTuple;
       const imports = await generateImportStatement('lodash', tuple, ctx.modules.get('lodash')!, ctx);
-      expect(imports).toEqual("import map from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/map/+esm';");
+      expect(imports).toEqual("import map from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/map/+esm'");
     });
 
     it('should generate import statements with renamed import', async () => {
       const tuple = ['merge', 'LodashMerge'] as ImportTuple;
       const imports = await generateImportStatement('lodash', tuple, ctx.modules.get('lodash')!, ctx);
-      expect(imports).toEqual("import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/merge/+esm';");
+      expect(imports).toEqual("import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/merge/+esm'");
+    });
+
+    it('should generate import statements with different transform', async () => {
+      const tuple = ['map', 'Undermap'] as ImportTuple;
+      const imports = await generateImportStatement('underscore', tuple, ctx.modules.get('underscore')!, ctx);
+      expect(imports).toEqual("import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@2.0.0/lib/map/+esm'");
     });
   });
 
-  it.skip('updates code with new statements', () => {
-    const newCode = updateCode(code, [['import import1 from \'https://cdn.jsdelivr.net/npm/test-package/import1@2.0.0/+esm\';', 0, 59]]);
-
-    expect(newCode).toEqual(expectedCode);
-  });
-
-
-  it.skip('should transform imports', async () => {
+  it('should transform imports', async () => {
     const result = await transformImports(code, ctx);
     expect(result).toEqual(expectedCode);
   });

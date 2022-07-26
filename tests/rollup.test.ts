@@ -4,8 +4,8 @@ import { describe, expect, it } from 'vitest';
 
 import jsDelivr from '../src/rollup';
 
-describe.skip('Rollup build', () => {
-  describe.skip('No transform', () => {
+describe('Rollup build', () => {
+  describe('No transform', () => {
     it('should rewrite imports for basic', async () => {
       const bundle = await rollup({
         input: './tests/fixtures/basic.ts',
