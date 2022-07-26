@@ -146,8 +146,8 @@ build({
   // Changes
   import { map, merge as LodashMerge } from "lodash";
   // to
-  import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map.js/+esm";
-  import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge.js/+esm";
+  import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm";
+  import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm";
 }
 ```
 
@@ -187,8 +187,8 @@ import LodashMerge from "lodash/merge";
 This creates more efficient development bundles as we're not loading the whole library. It also helps identify the exact files needed to be loaded from the CDN, producing the following code:
 
 ```ts
-import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map.js/+esm";
-import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge.js/+esm";
+import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm";
+import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm";
 ```
 
 > TODO
