@@ -1,9 +1,8 @@
 // Vitest Snapshot v1
 
 exports[`Rollup build > No transform > should rewrite imports for basic 1`] = `
-[
-  {
-    "code": "import map from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm';
+{
+  "code": "import map from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm';
 import colors from 'picocolors';
 import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm';
 
@@ -14,64 +13,35 @@ const testMap2 = Undermap([1, 2, 3], x => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
-    "dynamicImports": [],
-    "exports": [
-      "testColors",
-      "testMap",
-      "testMap2",
-      "testMerge",
+  "exports": [
+    "testColors",
+    "testMap",
+    "testMap2",
+    "testMerge",
+  ],
+  "fileName": "basic.js",
+  "importedBindings": {
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm": [
+      "default",
     ],
-    "facadeModuleId": "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts",
-    "fileName": "basic.js",
-    "implicitlyLoadedBefore": [],
-    "importedBindings": {
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm": [
-        "default",
-      ],
-      "https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm": [
-        "default",
-      ],
-      "picocolors": [
-        "default",
-      ],
-    },
-    "imports": [
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm",
-      "picocolors",
-      "https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm",
+    "https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm": [
+      "default",
     ],
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "modules": {
-      "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts": {
-        "code": "const testMap = map([1, 2, 3], x => x + 1);
-const testMerge = map({ a: 1 }, { b: 2 });
-const testColors = colors.bold('test');
-const testMap2 = Undermap([1, 2, 3], x => x + 1);",
-        "originalLength": 370,
-        "removedExports": [],
-        "renderedExports": [
-          "testColors",
-          "testMap",
-          "testMap2",
-          "testMerge",
-        ],
-        "renderedLength": 176,
-      },
-    },
-    "name": "basic",
-    "referencedFiles": [],
-    "type": "chunk",
+    "picocolors": [
+      "default",
+    ],
   },
-]
+  "imports": [
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm",
+    "picocolors",
+    "https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm",
+  ],
+}
 `;
 
 exports[`Rollup build > No transform > should skip rewrite imports for basic 1`] = `
-[
-  {
-    "code": "import { map, merge } from 'lodash';
+{
+  "code": "import { map, merge } from 'lodash';
 import colors from 'picocolors';
 import { map as map$1 } from 'underscore';
 
@@ -82,65 +52,36 @@ const testMap2 = map$1([1, 2, 3], x => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
-    "dynamicImports": [],
-    "exports": [
-      "testColors",
-      "testMap",
-      "testMap2",
-      "testMerge",
+  "exports": [
+    "testColors",
+    "testMap",
+    "testMap2",
+    "testMerge",
+  ],
+  "fileName": "basic.js",
+  "importedBindings": {
+    "lodash": [
+      "map",
+      "merge",
     ],
-    "facadeModuleId": "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts",
-    "fileName": "basic.js",
-    "implicitlyLoadedBefore": [],
-    "importedBindings": {
-      "lodash": [
-        "map",
-        "merge",
-      ],
-      "picocolors": [
-        "default",
-      ],
-      "underscore": [
-        "map",
-      ],
-    },
-    "imports": [
-      "lodash",
-      "picocolors",
-      "underscore",
+    "picocolors": [
+      "default",
     ],
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "modules": {
-      "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts": {
-        "code": "const testMap = map([1, 2, 3], x => x + 1);
-const testMerge = merge({ a: 1 }, { b: 2 });
-const testColors = colors.bold('test');
-const testMap2 = map$1([1, 2, 3], x => x + 1);",
-        "originalLength": 370,
-        "removedExports": [],
-        "renderedExports": [
-          "testColors",
-          "testMap",
-          "testMap2",
-          "testMerge",
-        ],
-        "renderedLength": 175,
-      },
-    },
-    "name": "basic",
-    "referencedFiles": [],
-    "type": "chunk",
+    "underscore": [
+      "map",
+    ],
   },
-]
+  "imports": [
+    "lodash",
+    "picocolors",
+    "underscore",
+  ],
+}
 `;
 
 exports[`Rollup build > With transform > should split imports and rewrite for basic 1`] = `
-[
-  {
-    "code": "import map from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm';
+{
+  "code": "import map from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm';
 import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm';
 import colors from 'picocolors';
 import { map as map$1 } from 'underscore';
@@ -152,68 +93,39 @@ const testMap2 = map$1([1, 2, 3], x => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
-    "dynamicImports": [],
-    "exports": [
-      "testColors",
-      "testMap",
-      "testMap2",
-      "testMerge",
+  "exports": [
+    "testColors",
+    "testMap",
+    "testMap2",
+    "testMerge",
+  ],
+  "fileName": "basic.js",
+  "importedBindings": {
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm": [
+      "default",
     ],
-    "facadeModuleId": "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts",
-    "fileName": "basic.js",
-    "implicitlyLoadedBefore": [],
-    "importedBindings": {
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm": [
-        "default",
-      ],
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm": [
-        "default",
-      ],
-      "picocolors": [
-        "default",
-      ],
-      "underscore": [
-        "map",
-      ],
-    },
-    "imports": [
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm",
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm",
-      "picocolors",
-      "underscore",
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm": [
+      "default",
     ],
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "modules": {
-      "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts": {
-        "code": "const testMap = map([1, 2, 3], x => x + 1);
-const testMerge = LodashMerge({ a: 1 }, { b: 2 });
-const testColors = colors.bold('test');
-const testMap2 = map$1([1, 2, 3], x => x + 1);",
-        "originalLength": 370,
-        "removedExports": [],
-        "renderedExports": [
-          "testColors",
-          "testMap",
-          "testMap2",
-          "testMerge",
-        ],
-        "renderedLength": 181,
-      },
-    },
-    "name": "basic",
-    "referencedFiles": [],
-    "type": "chunk",
+    "picocolors": [
+      "default",
+    ],
+    "underscore": [
+      "map",
+    ],
   },
-]
+  "imports": [
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm",
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm",
+    "picocolors",
+    "underscore",
+  ],
+}
 `;
 
 exports[`Rollup build > With transform > should split multiple imports and rewrite for basic 1`] = `
-[
-  {
-    "code": "import map from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm';
+{
+  "code": "import map from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm';
 import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm';
 import colors from 'picocolors';
 import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm';
@@ -225,60 +137,32 @@ const testMap2 = Undermap([1, 2, 3], x => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
-    "dynamicImports": [],
-    "exports": [
-      "testColors",
-      "testMap",
-      "testMap2",
-      "testMerge",
+  "exports": [
+    "testColors",
+    "testMap",
+    "testMap2",
+    "testMerge",
+  ],
+  "fileName": "basic.js",
+  "importedBindings": {
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm": [
+      "default",
     ],
-    "facadeModuleId": "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts",
-    "fileName": "basic.js",
-    "implicitlyLoadedBefore": [],
-    "importedBindings": {
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm": [
-        "default",
-      ],
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm": [
-        "default",
-      ],
-      "https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm": [
-        "default",
-      ],
-      "picocolors": [
-        "default",
-      ],
-    },
-    "imports": [
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm",
-      "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm",
-      "picocolors",
-      "https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm",
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm": [
+      "default",
     ],
-    "isDynamicEntry": false,
-    "isEntry": true,
-    "isImplicitEntry": false,
-    "map": null,
-    "modules": {
-      "C:\\\\Users\\\\spydo\\\\Desktop\\\\Websites\\\\unplugin-jsdelivr\\\\tests\\\\fixtures\\\\basic.ts": {
-        "code": "const testMap = map([1, 2, 3], x => x + 1);
-const testMerge = LodashMerge({ a: 1 }, { b: 2 });
-const testColors = colors.bold('test');
-const testMap2 = Undermap([1, 2, 3], x => x + 1);",
-        "originalLength": 370,
-        "removedExports": [],
-        "renderedExports": [
-          "testColors",
-          "testMap",
-          "testMap2",
-          "testMerge",
-        ],
-        "renderedLength": 184,
-      },
-    },
-    "name": "basic",
-    "referencedFiles": [],
-    "type": "chunk",
+    "https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm": [
+      "default",
+    ],
+    "picocolors": [
+      "default",
+    ],
   },
-]
+  "imports": [
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map/+esm",
+    "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm",
+    "picocolors",
+    "https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm",
+  ],
+}
 `;

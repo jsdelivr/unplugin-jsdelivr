@@ -4,6 +4,17 @@ import { describe, expect, it } from 'vitest';
 
 import jsDelivr from '../src/rollup';
 
+const outputToSnapshot = (output: any) => {
+  const obj = output[0];
+  return {
+    exports: obj.exports,
+    code: obj.code,
+    fileName: obj.fileName,
+    importedBindings: obj.importedBindings,
+    imports: obj.imports,
+  };
+};
+
 describe('Rollup build', () => {
   describe('No transform', () => {
     it('should rewrite imports for basic', async () => {
@@ -13,7 +24,7 @@ describe('Rollup build', () => {
       });
       const { output } = await bundle.generate({ format: 'esm' });
       expect(output[0].imports).toEqual(['https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm', 'picocolors', 'https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm']);
-      expect(output).toMatchSnapshot();
+      expect(outputToSnapshot(output)).toMatchSnapshot();
     });
 
     it('should skip rewrite imports for basic', async () => {
@@ -23,7 +34,7 @@ describe('Rollup build', () => {
       });
       const { output } = await bundle.generate({ format: 'esm' });
       expect(output[0].imports).toEqual(['lodash', 'picocolors', 'underscore']);
-      expect(output).toMatchSnapshot();
+      expect(outputToSnapshot(output)).toMatchSnapshot();
     });
   });
 
@@ -42,7 +53,7 @@ describe('Rollup build', () => {
         'https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm',
         'picocolors',
         'underscore']);
-      expect(output).toMatchSnapshot();
+      expect(outputToSnapshot(output)).toMatchSnapshot();
     });
 
     it('should split multiple imports and rewrite for basic', async () => {
@@ -61,7 +72,7 @@ describe('Rollup build', () => {
         'https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm',
         'picocolors',
         'https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm']);
-      expect(output).toMatchSnapshot();
+      expect(outputToSnapshot(output)).toMatchSnapshot();
     });
   });
 });

@@ -10,7 +10,7 @@ export interface Options {
   enforce?: 'pre' | 'post',
   endpoint?: 'npm' | 'gh',
 
-  modules: ModuleOpts[],
+  modules?: ModuleOpts[],
 }
 
 export type ModuleMapReturn = string | TransformFunction
