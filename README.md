@@ -36,7 +36,8 @@ import jsDelivr from "unplugin-jsdelivr/rollup";
 export default {
   plugins: [
     jsDelivr({
-      /* options */
+      modules: [{ module: "lodash" }],
+      // See below for more options
     }),
     // other plugins
   ],
@@ -54,7 +55,8 @@ module.exports = {
   /* ... */
   plugins: [
     require("unplugin-jsdelivr/webpack")({
-      /* options */
+      modules: [{ module: "lodash" }],
+      // See below for more options
     }),
   ],
 };
@@ -71,7 +73,8 @@ module.exports = {
   configureWebpack: {
     plugins: [
       require("unplugin-jsDelivr/webpack")({
-        /* options */
+        modules: [{ module: "lodash" }],
+        // See below for more options
       }),
     ],
   },
@@ -91,7 +94,8 @@ build({
   /* ... */
   plugins: [
     require("unplugin-jsDelivr/esbuild")({
-      /* options */
+      modules: [{ module: "lodash" }],
+      // See below for more options
     }),
   ],
 });
@@ -99,17 +103,79 @@ build({
 
 <br></details>
 
+## Options
+
+```ts
+{
+  // Required
+  modules: [...] // See Modules
+
+  // Options
+  cwd: process.cwd();
+  endpoint: "npm" // or "gh"
+  enforce: undefined // "pre" | "post" - only applicable to Vite and Webpack
+}
+```
+
+### Modules
+
+```ts
+// Options
+{
+  modules: [{ module: "lodash" }];
+
+  // Changes
+  import { map, merge as LodashMerge } from "lodash";
+  // to
+  import {
+    map,
+    merge as LodashMerge,
+  } from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm";
+}
+```
+
+```ts
+{
+  modules: [
+    {
+      module: "lodash",
+      transform: (moduleName, importName) => `${moduleName}/${importName}`,
+    },
+  ];
+
+  // Changes
+  import { map, merge as LodashMerge } from "lodash";
+  // to
+  import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map.js/+esm";
+  import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge.js/+esm";
+}
+```
+
 ## How It Works
 
 The plugin aims to resolve all the external modules into resolvable CDN URLs.
 
-If the `transform` option is set to `true` and setup correctly, it first transforms member style imports into default imports e.g.
+If only `lodash` is included with no transform function passed through, it only resolves the package to the ESM bundle online. The version is resolved from your `package.json`.
 
 ```ts
 import { map, merge as LodashMerge } from "lodash";
 ```
 
-to
+```ts
+import {
+  map,
+  merge as LodashMerge,
+} from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm";
+```
+
+Alternatively, if a transform function is passed through to the config, it will first transform the imports before resolving to the ESM bundles online.
+
+```ts
+transform: (moduleName, importName) => `${moduleName}/${importName}`
+
+`moduleName` -> `lodash`
+`importName` -> `map` and `merge`
+```
 
 ```ts
 import map from "lodash/map";
@@ -123,15 +189,6 @@ This creates more efficient development bundles as we're not loading the whole l
 ```ts
 import map from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/map.js/+esm";
 import LodashMerge from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge.js/+esm";
-```
-
-Alternatively, if the `transform` option is set to false, it will directly resolve to the ESM bundles of the package:
-
-```ts
-import {
-  map,
-  merge as LodashMerge,
-} from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm";
 ```
 
 > TODO

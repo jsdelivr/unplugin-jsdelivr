@@ -5,16 +5,16 @@ export interface ModuleOpts {
   version?: string,
 }
 
-export type ModuleMapReturn = string | TransformFunction
-export type ModuleMap = Map<string, ModuleMapReturn>
-
 export interface Options {
   cwd?: string,
   enforce?: 'pre' | 'post',
   endpoint?: 'npm' | 'gh',
 
-  modules?: ModuleOpts[],
+  modules: ModuleOpts[],
 }
+
+export type ModuleMapReturn = string | TransformFunction
+export type ModuleMap = Map<string, ModuleMapReturn>
 
 export interface Context {
   modules: ModuleMap,
