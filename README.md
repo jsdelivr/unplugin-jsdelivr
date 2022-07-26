@@ -168,7 +168,7 @@ import {
 } from "https://cdn.jsdelivr.net/npm/lodash@4.17.21/+esm";
 ```
 
-Alternatively, if a transform function is passed through to the config, it will first transform the imports before resolving to the ESM bundles online.
+Alternatively, if a transform function is passed through to the config, it will first transform the member style imports into default imports before resolving to the ESM bundles online.
 
 ```ts
 transform: (moduleName, importName) => `${moduleName}/${importName}`
