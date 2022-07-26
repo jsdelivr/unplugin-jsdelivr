@@ -15,7 +15,7 @@ const generateImportTuple = (importElem: string): ImportTuple => {
 const generateImportStatement = async (importModule: string, importTuple: ImportTuple, transform: ModuleMapReturn, ctx: Context): Promise<string> => {
   const version = await getVersion(importModule, ctx.cwd);
   const [originalImport, renamedImport] = importTuple;
-  const transformedModule = typeof transform === 'string' ? transform : transform(`${importModule}@${version}`, originalImport);
+  const transformedModule = typeof transform === 'string' ? `${transform}@${version}` : transform(`${importModule}@${version}`, originalImport);
   const newModulePath = `${ctx.host}/${transformedModule}/+esm`;
   return `import ${renamedImport} from '${newModulePath}'`;
 };
