@@ -43,30 +43,30 @@
     "prepublish": "npm run format && npm run build"
   },
   "dependencies": {
-    "es-module-lexer": "^0.10.5",
+    "es-module-lexer": "^1.0.1",
     "magic-string": "^0.26.2",
-    "pathe": "^0.3.2",
+    "pathe": "^0.3.3",
     "pkg-up": "^4.0.0",
     "semver": "^7.3.7",
-    "unplugin": "^0.7.2"
+    "unplugin": "^0.8.0"
   },
   "devDependencies": {
-    "@ayuhito/eslint-config": "^0.2.3",
-    "@types/node": "^18.0.6",
+    "@ayuhito/eslint-config": "^0.2.4",
+    "@types/node": "^18.6.3",
     "@types/semver": "^7.3.10",
     "c8": "^7.12.0",
-    "eslint": "^8.20.0",
+    "eslint": "^8.21.0",
     "fast-glob": "^3.2.11",
     "picocolors": "^1.0.0",
     "pkg-versions": "^3.0.0",
-    "pkgroll": "^1.3.1",
+    "pkgroll": "^1.4.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.77.0",
+    "rollup": "^2.77.2",
     "tsx": "^3.8.0",
-    "type-fest": "^2.17.0",
+    "type-fest": "^2.18.0",
     "typescript": "^4.7.4",
-    "vitest": "^0.18.1"
+    "vitest": "^0.20.3"
   },
   "engines": {
     "node": ">=14"
