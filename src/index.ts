@@ -5,14 +5,13 @@ import { createContext } from './core/context';
 import { transformImports } from './core/transform';
 import type { Options } from './types';
 
-
-export default createUnplugin<Options>(options => {
+export default createUnplugin<Options>((options) => {
   const ctx = createContext(options);
 
-  return ({
+  return {
     name: 'unplugin-jsdelivr',
     async transform(code) {
       return transformImports(code, ctx);
-    }
-  });
+    },
+  };
 });

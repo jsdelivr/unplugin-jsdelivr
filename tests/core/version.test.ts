@@ -11,7 +11,6 @@ vi.mock('pkg-up');
 vi.mock('pkg-versions');
 
 describe('Version', () => {
-
   const testPkgJson = JSON.stringify({
     dependencies: {
       'package-normal': '1.0.0',
@@ -20,14 +19,20 @@ describe('Version', () => {
       // This tag actually works on jsDelivr (???) but our goal is fixed versions
       'package-range-redundant': '1.x || >=2.5.0 || 5.0.0 - 7.2.3',
       'package-invalid': 'a.b.c',
-    }
+    },
   });
 
   const depVersions = {
     'package-normal': new Set(['1.0.0', '1.0.1', '1.2.3']),
     'package-caret': new Set(['1.0.0', '1.0.1', '1.1.1', '2.1.1']),
     'package-range': new Set(['1.0.0', '1.0.1', '2.7.7', '6.5.2', '8.1.1']),
-    'package-range-redundant': new Set(['1.0.0', '1.0.1', '2.7.7', '6.5.2', '8.1.1']),
+    'package-range-redundant': new Set([
+      '1.0.0',
+      '1.0.1',
+      '2.7.7',
+      '6.5.2',
+      '8.1.1',
+    ]),
   };
 
   vi.mocked(fs.readFile).mockResolvedValue(testPkgJson);
@@ -52,16 +57,24 @@ describe('Version', () => {
   });
 
   it('should return the correct range redundant version', async () => {
-    vi.mocked(pkgVersions).mockResolvedValue(depVersions['package-range-redundant']);
+    vi.mocked(pkgVersions).mockResolvedValue(
+      depVersions['package-range-redundant']
+    );
     const version = await getVersion('package-range-redundant');
     expect(version).toBe('8.1.1');
   });
 
   it('should throw for invalid package', () => {
-    expect(() => getVersion('unplugin-jsdelivr')).rejects.toThrow(`Could not find ${colors.bold(colors.yellow('unplugin-jsdelivr'))} in package.json dependencies...`);
+    expect(() => getVersion('unplugin-jsdelivr')).rejects.toThrow(
+      `Could not find ${colors.bold(
+        colors.yellow('unplugin-jsdelivr')
+      )} in package.json dependencies...`
+    );
   });
 
   it('should throw for invalid package version', () => {
-    expect(() => getVersion('package-invalid')).rejects.toThrow('not valid semver');
+    expect(() => getVersion('package-invalid')).rejects.toThrow(
+      'not valid semver'
+    );
   });
 });
