@@ -25,12 +25,13 @@ import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@2.0.0/merge/+esm';
 import colors from 'picocolors';
 import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@2.0.0/lib/map/+esm';
 
-const testMap = map([1, 2, 3], x => x + 1);
+const testMap = map([1, 2, 3], (x) => x + 1);
 const testMerge = LodashMerge({ a: 1 }, { b: 2 });
 const testColors = colors.bold('test');
-const testMap2 = Undermap([1, 2, 3], x => x + 1);
+const testMap2 = Undermap([1, 2, 3], (x) => x + 1);
 
-export { testColors, testMap, testMap2, testMerge };`;
+export { testColors, testMap, testMap2, testMerge };
+`;
 
   describe('Generate import tuples', () => {
     it('maps one to one', () => {

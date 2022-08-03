@@ -6,10 +6,10 @@ exports[`Rollup build > No transform > should rewrite imports for basic 1`] = `
 import colors from 'picocolors';
 import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@1.13.4/+esm';
 
-const testMap = map([1, 2, 3], x => x + 1);
+const testMap = map([1, 2, 3], (x) => x + 1);
 const testMerge = map({ a: 1 }, { b: 2 });
 const testColors = colors.bold('test');
-const testMap2 = Undermap([1, 2, 3], x => x + 1);
+const testMap2 = Undermap([1, 2, 3], (x) => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
@@ -45,10 +45,10 @@ exports[`Rollup build > No transform > should skip rewrite imports for basic 1`]
 import colors from 'picocolors';
 import { map as map$1 } from 'underscore';
 
-const testMap = map([1, 2, 3], x => x + 1);
+const testMap = map([1, 2, 3], (x) => x + 1);
 const testMerge = merge({ a: 1 }, { b: 2 });
 const testColors = colors.bold('test');
-const testMap2 = map$1([1, 2, 3], x => x + 1);
+const testMap2 = map$1([1, 2, 3], (x) => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
@@ -86,10 +86,10 @@ import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm'
 import colors from 'picocolors';
 import { map as map$1 } from 'underscore';
 
-const testMap = map([1, 2, 3], x => x + 1);
+const testMap = map([1, 2, 3], (x) => x + 1);
 const testMerge = LodashMerge({ a: 1 }, { b: 2 });
 const testColors = colors.bold('test');
-const testMap2 = map$1([1, 2, 3], x => x + 1);
+const testMap2 = map$1([1, 2, 3], (x) => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
@@ -130,10 +130,10 @@ import LodashMerge from 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/merge/+esm'
 import colors from 'picocolors';
 import Undermap from 'https://cdn.jsdelivr.net/npm/underscore@1.13.4/lib/map/+esm';
 
-const testMap = map([1, 2, 3], x => x + 1);
+const testMap = map([1, 2, 3], (x) => x + 1);
 const testMerge = LodashMerge({ a: 1 }, { b: 2 });
 const testColors = colors.bold('test');
-const testMap2 = Undermap([1, 2, 3], x => x + 1);
+const testMap2 = Undermap([1, 2, 3], (x) => x + 1);
 
 export { testColors, testMap, testMap2, testMerge };
 ",
