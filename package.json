@@ -81,5 +81,10 @@
     "cdn"
   ],
   "author": "Ayuhito <declininglotus@gmail.com>",
+  "homepage": "https://github.com/jsdelivr/unplugin-jsdelivr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsdelivr/unplugin-jsdelivr"
+  },
   "license": "MIT"
 }
